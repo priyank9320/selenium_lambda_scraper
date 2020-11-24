@@ -94,7 +94,7 @@ def finder(url):
     #print(soup.prettify())
     html_text = str(soup) 
 
-    all_links = re.findall(r'"http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"', html_text) # finds all possible links present in the initial scrape
+    all_links = re.findall(r'"?\'?http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"?\'?', html_text) # finds all possible links present in the initial scrape
     if all_links :
         #print(all_links) 
         all_flag = 1 
@@ -135,7 +135,7 @@ def finder(url):
 
 
     #facebook_list = re.findall(r'".+facebook.+"', html_text) # '\w+@\w+\.{1}\w+' for emails, https:\/\/www\.linkedin\.com\/company\/.+ for linkedin links
-    facebook_list = re.findall(r'"http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+facebook[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"', html_text) # '\w+@\w+\.{1}\w+' for emails, https:\/\/www\.linkedin\.com\/company\/.+ for linkedin 
+    facebook_list = re.findall(r'"?\'?http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+facebook[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"?\'?', html_text) # '\w+@\w+\.{1}\w+' for emails, https:\/\/www\.linkedin\.com\/company\/.+ for linkedin 
 
     if facebook_list : 
         fb_flag = 1 
@@ -144,13 +144,13 @@ def finder(url):
     else: fb_flag = 0
 
     #linkedin_list = re.findall(r'https:\/\/www\.linkedin\.com\/company\/[a-zA-Z0-9\-\.]+', html_text)
-    linkedin_list = re.findall(r'"http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+linkedin[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"', html_text)
+    linkedin_list = re.findall(r'"?\'?http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+linkedin[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"?\'?', html_text)
     if linkedin_list: 
         ln_flag = 1
         linkedin_list = set([x.lower().replace('"','') for x in linkedin_list if link_checker(url, x.lower().replace('"','')) and '.svg' not in x.lower()  and '.png' not in x.lower()  ])
     else: ln_flag = 0
 
-    twitter_list = re.findall(r'"http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+twitter[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"', html_text)
+    twitter_list = re.findall(r'"?\'?http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+twitter[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"?\'?', html_text)
     if twitter_list: 
         tw_flag = 1 
         twitter_list = set([x.lower().replace('"','') for x in twitter_list if link_checker(url, x.lower().replace('"','')) and 'platform' not in x.lower() and '.svg' not in x.lower() and '.png' not in x.lower() ])
@@ -158,7 +158,7 @@ def finder(url):
 
     #instagram_list = re.findall(r'https:\/\/www\.instagram\.com\/[a-zA-Z0-9\-\.\_]+', html_text)
     #instagram_list = [x.lower() for x in instagram_list if self.link_checker(self.input_company_name.lower(), x.lower()) ]
-    instagram_list = re.findall(r'"http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+instagram[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"', html_text)
+    instagram_list = re.findall(r'"?\'?http[a-zA-Z0-9\.\-\=\&\?\/\:\_]+instagram[a-zA-Z0-9\.\-\=\&\?\/\:\_]+"?\'?', html_text)
     if instagram_list: 
         in_flag = 1
         instagram_list = set([x.lower().replace('"','') for x in instagram_list if link_checker(url, x.lower().replace('"','')) and '.svg' not in x.lower() and '.png' not in x.lower()  ])
@@ -251,3 +251,5 @@ def finder(url):
 
 
 
+#test line below, comment out after use
+#print(finder('https://example.com/'))
